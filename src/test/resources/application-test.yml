@@ -1,0 +1,11 @@
+spring:
+  cache:
+    type: none  # disable caching in tests so every call hits WireMock
+
+# timeouts (keep same values for integration tests)
+dog:
+  api:
+    base-url: http://localhost:8090   # overridden dynamically by @DynamicPropertySource
+    timeout:
+      breeds-list-ms: 5000
+      sub-breed-list-ms: 2000

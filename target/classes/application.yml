@@ -1,0 +1,50 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: dog-breed-api
+
+  # H2 in-memory database
+  datasource:
+    url: jdbc:h2:mem:dogdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none          # we use schema.sql + data.sql
+    show-sql: true
+    open-in-view: false
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:db/schema.sql
+      data-locations: classpath:db/data.sql
+
+  # Simple in-memory cache (ConcurrentMapCacheManager)
+  cache:
+    type: simple
+
+# Dog CEO API config
+dog:
+  api:
+    base-url: https://dog.ceo/api
+    timeout:
+      breeds-list-ms: 5000   # timeout for breeds/list/all
+      sub-breed-list-ms: 2000 # timeout for breed/{name}/list
+
+# Springdoc / Swagger
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
